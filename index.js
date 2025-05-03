@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3500;
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -68,6 +70,22 @@ app.delete("/todos/:id", (req, res) => {
 		res.status(404).json({ message: "Todo not found" });
 	}
 });
+
+// Connecting application to MongoDB database:
+mongoose
+	.connect(process.env.MONGO_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => {
+		console.log("Connected to MongoDB");
+		app.listen(PORT, () => {
+			console.log(`Server running on http://localhost:${PORT}`);
+		});
+	})
+	.catch((err) => {
+		console.error("MongoDB connection error:", err);
+	});
 
 // Start the server
 app.listen(PORT, () => {
