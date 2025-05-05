@@ -1,12 +1,16 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
+
 const app = express();
 const PORT = process.env.PORT || 3500;
-const mongoose = require("mongoose");
-require("dotenv").config();
+
 const Todo = require("./models/Todo");
 
-// Middleware to parse JSON
-app.use(express.json());
+// Middleware:
+app.use(express.json()); // Middleware to parse JSON
+app.use(cors()); // Enable CORS for all origins
 
 // Default route
 app.get("/", (req, res) => {
