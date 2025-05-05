@@ -8,12 +8,6 @@ const Todo = require("./models/Todo");
 // Middleware to parse JSON
 app.use(express.json());
 
-// Dummy data
-let todos = [
-	{ id: 1, title: "Learn Node.js", completed: false },
-	{ id: 2, title: "Build a todo API", completed: false },
-];
-
 // Default route
 app.get("/", (req, res) => {
 	res.send("Welcome to the Todo List API!");
